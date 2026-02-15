@@ -1,0 +1,122 @@
+{
+    "passengers": [
+        {
+            "id": 1,
+            "name": "Alice Johnson",
+            "phone": "1234567890",
+            "email": "alice@example.com"
+        },
+        {
+            "id": 2,
+            "name": "Bob Smith",
+            "phone": "1234567891",
+            "email": "bob@example.com"
+        },
+        {
+            "id": 3,
+            "name": "Charlie Brown",
+            "phone": "1234567892",
+            "email": "charlie@example.com"
+        },
+        {
+            "id": 4,
+            "name": "Diana Prince",
+            "phone": "1234567893",
+            "email": "diana@example.com"
+        },
+        {
+            "id": 5,
+            "name": "Eve Davis",
+            "phone": "1234567894",
+            "email": "eve@example.com"
+        }
+    ],
+    "cabs": [
+        {
+            "id": 1,
+            "driver_name": "John Driver",
+            "driver_phone": "9876543210",
+            "license_plate": "ABC-1234",
+            "seat_capacity": 4,
+            "luggage_capacity": 3,
+            "current_lat": 40.7128,
+            "current_lng": -74.0060
+        },
+        {
+            "id": 2,
+            "driver_name": "Mary Cabby",
+            "driver_phone": "9876543211",
+            "license_plate": "XYZ-5678",
+            "seat_capacity": 4,
+            "luggage_capacity": 3,
+            "current_lat": 40.7580,
+            "current_lng": -73.9855
+        },
+        {
+            "id": 3,
+            "driver_name": "Sam Wheeler",
+            "driver_phone": "9876543212",
+            "license_plate": "LMN-9012",
+            "seat_capacity": 6,
+            "luggage_capacity": 4,
+            "current_lat": 40.7489,
+            "current_lng": -73.9680
+        }
+    ],
+    "bookings_compatible": [
+        {
+            "passenger_id": 1,
+            "pickup_lat": 40.7128,
+            "pickup_lng": -74.0060,
+            "pickup_address": "Terminal 1, JFK Airport",
+            "dropoff_lat": 40.7580,
+            "dropoff_lng": -73.9855,
+            "dropoff_address": "Times Square, NYC",
+            "seats_required": 1,
+            "luggage_count": 1,
+            "detour_tolerance_minutes": 15
+        },
+        {
+            "passenger_id": 2,
+            "pickup_lat": 40.7140,
+            "pickup_lng": -74.0050,
+            "pickup_address": "Terminal 2, JFK Airport",
+            "dropoff_lat": 40.7614,
+            "dropoff_lng": -73.9776,
+            "dropoff_address": "Central Park South",
+            "seats_required": 1,
+            "luggage_count": 2,
+            "detour_tolerance_minutes": 20
+        },
+        {
+            "passenger_id": 3,
+            "pickup_lat": 40.7135,
+            "pickup_lng": -74.0055,
+            "pickup_address": "Terminal 3, JFK Airport",
+            "dropoff_lat": 40.7549,
+            "dropoff_lng": -73.9840,
+            "dropoff_address": "Rockefeller Center",
+            "seats_required": 1,
+            "luggage_count": 1,
+            "detour_tolerance_minutes": 15
+        }
+    ],
+    "bookings_incompatible": [
+        {
+            "passenger_id": 4,
+            "pickup_lat": 40.6413,
+            "pickup_lng": -73.7781,
+            "pickup_address": "LaGuardia Airport",
+            "dropoff_lat": 40.7829,
+            "dropoff_lng": -73.9654,
+            "dropoff_address": "Upper East Side",
+            "seats_required": 3,
+            "luggage_count": 3,
+            "detour_tolerance_minutes": 10
+        }
+    ],
+    "description": {
+        "compatible_bookings": "First 3 bookings are from JFK terminals (close proximity) to Manhattan destinations (similar routes). They should pool together.",
+        "incompatible_booking": "Booking 4 is from LaGuardia (different airport, too far) and requires 3 seats + low detour tolerance."
+    }
+}
