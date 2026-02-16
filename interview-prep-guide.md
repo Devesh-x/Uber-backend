@@ -413,7 +413,25 @@ For integration tests, I'd use:
 
 ---
 
-## Quick Reference
+## 🎨 Whiteboarding the System Architecture (Draw This Live!)
+
+If asked to draw the system, follow this narrative flow:
+
+1.  **Start with the User**: Draw the `Client App` on the left.
+2.  **The Entry Point**: Draw the `Load Balancer` (Explain: "To handle 10k concurrent users").
+3.  **The Brain (Service Layer)**: Draw a big box for `Node.js Cluster`. Inside, box out:
+    -   `Booking Service` (API handling)
+    -   `Pricing Engine` (Cost logic)
+    -   `Pool Matcher` (The core logic)
+4.  **The Storage**:
+    -   Draw `PostgreSQL` (Explain: "For ACID/Transactions and geospatial queries")
+    -   Draw `Redis` (Explain: "For caching and distributed locking")
+5.  **The "Magic" Link**: Draw a line from `Pool Matcher` to `Redis` and say: *"This is crucial. I use Redis locks here to prevent race conditions when two users try to book the same seat."*
+6.  **The Background Worker**: Draw an async worker loop connected to `Pool Matcher` (Explain: "Runs every 5s to process batches").
+
+---
+
+## 🎯 Final Tips for Interview
 
 **Repository**: https://github.com/Devesh-x/Uber-backend
 
