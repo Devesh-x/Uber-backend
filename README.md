@@ -1,44 +1,44 @@
 # Smart Airport Ride Pooling Backend System
 
-A production-ready backend system for intelligent airport ride pooling that optimizes passenger grouping while respecting capacity, luggage, and detour constraints.
+A productionready backend system for intelligent airport ride pooling that optimizes passenger grouping while respecting capacity, luggage, and detour constraints.
 
 ## 🚀 Features
 
-- **Intelligent Matching Algorithm**: Modified greedy matching with constraint satisfaction (O(n log n) complexity)
-- **Dynamic Pricing**: Real-time surge pricing based on demand/supply ratio
-- **Concurrency Support**: Node.js clustering for 10,000+ concurrent users
-- **Real-time Cancellation**: Automatic pool rebalancing on cancellations
-- **Optimized Routes**: TSP-based route optimization for minimal detours
-- **RESTful APIs**: Complete CRUD operations with Swagger documentation
-- **Distributed Locking**: Redis-based concurrency control
-- **Database Optimization**: PostgreSQL with strategic indexing
+ **Intelligent Matching Algorithm**: Modified greedy matching with constraint satisfaction (O(n log n) complexity)
+ **Dynamic Pricing**: Realtime surge pricing based on demand/supply ratio
+ **Concurrency Support**: Node.js clustering for 10,000+ concurrent users
+ **Realtime Cancellation**: Automatic pool rebalancing on cancellations
+ **Optimized Routes**: TSPbased route optimization for minimal detours
+ **RESTful APIs**: Complete CRUD operations with Swagger documentation
+ **Distributed Locking**: Redisbased concurrency control
+ **Database Optimization**: PostgreSQL with strategic indexing
 
 ## 📋 Table of Contents
 
-- [Tech Stack](#tech-stack)
-- [System Architecture](#system-architecture)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Database Setup](#database-setup)
-- [Running the Application](#running-the-application)
-- [API Documentation](#api-documentation)
-- [Testing](#testing)
-- [Algorithm Documentation](#algorithm-documentation)
-- [Performance Metrics](#performance-metrics)
-- [Project Structure](#project-structure)
+ [Tech Stack](#techstack)
+ [System Architecture](#systemarchitecture)
+ [Prerequisites](#prerequisites)
+ [Installation](#installation)
+ [Configuration](#configuration)
+ [Database Setup](#databasesetup)
+ [Running the Application](#runningtheapplication)
+ [API Documentation](#apidocumentation)
+ [Testing](#testing)
+ [Algorithm Documentation](#algorithmdocumentation)
+ [Performance Metrics](#performancemetrics)
+ [Project Structure](#projectstructure)
 
 ## 🛠 Tech Stack
 
-- **Runtime**: Node.js 18+
-- **Language**: TypeScript
-- **Framework**: Express.js
-- **Database**: PostgreSQL 14+
-- **Cache/Queue**: Redis 7+
-- **Validation**: Joi
-- **Logging**: Winston
-- **Testing**: Jest + Supertest
-- **Documentation**: Swagger/OpenAPI
+ **Runtime**: Node.js 18+
+ **Language**: TypeScript
+ **Framework**: Express.js
+ **Database**: PostgreSQL 14+
+ **Cache/Queue**: Redis 7+
+ **Validation**: Joi
+ **Logging**: Winston
+ **Testing**: Jest + Supertest
+ **Documentation**: Swagger/OpenAPI
 
 ## 🏗 System Architecture
 
@@ -76,16 +76,16 @@ A production-ready backend system for intelligent airport ride pooling that opti
 
 ## ✅ Prerequisites
 
-- Node.js >= 18.0.0
-- PostgreSQL >= 14.0
-- Redis >= 7.0
-- npm or yarn
+ Node.js >= 18.0.0
+ PostgreSQL >= 14.0
+ Redis >= 7.0
+ npm or yarn
 
 ## 📦 Installation
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone <yourrepourl>
    cd uber
    ```
 
@@ -137,7 +137,7 @@ LOG_LEVEL=info
 
 ```bash
 # Windows (PowerShell)
-psql -U postgres
+psql U postgres
 CREATE DATABASE ride_pooling;
 \q
 ```
@@ -145,19 +145,19 @@ CREATE DATABASE ride_pooling;
 ### 2. Run Schema Migration
 
 ```bash
-psql -U postgres -d ride_pooling -f database/schema.sql
+psql U postgres d ride_pooling f database/schema.sql
 ```
 
 This creates:
-- All tables (passengers, cabs, bookings, ride_pools, pool_participants, pricing_config)
-- Optimized indexes (B-tree, GiST spatial indexes)
-- Triggers for `updated_at` timestamps
-- Views for common queries
+ All tables (passengers, cabs, bookings, ride_pools, pool_participants, pricing_config)
+ Optimized indexes (Btree, GiST spatial indexes)
+ Triggers for `updated_at` timestamps
+ Views for common queries
 
 ### 3. Verify Installation
 
 ```bash
-psql -U postgres -d ride_pooling
+psql U postgres d ride_pooling
 \dt  # List tables
 \di  # List indexes
 ```
@@ -171,9 +171,9 @@ npm run dev
 ```
 
 Server starts on `http://localhost:3000` with:
-- Hot reloading (nodemon)
-- Single worker process
-- Console logging
+ Hot reloading (nodemon)
+ Single worker process
+ Console logging
 
 ### Production Mode
 
@@ -183,9 +183,9 @@ npm start
 ```
 
 Features:
-- Clustered mode (one worker per CPU core)
-- Optimized performance
-- File-based logging
+ Clustered mode (one worker per CPU core)
+ Optimized performance
+ Filebased logging
 
 ### Health Check
 
@@ -197,9 +197,9 @@ Expected response:
 ```json
 {
   "success": true,
-  "service": "ride-pooling-backend",
+  "service": "ridepoolingbackend",
   "database": "connected",
-  "timestamp": "2026-02-15T12:00:00.000Z"
+  "timestamp": "20260215T12:00:00.000Z"
 }
 ```
 
@@ -207,49 +207,49 @@ Expected response:
 
 Interactive Swagger documentation available at:
 ```
-http://localhost:3000/api-docs
+http://localhost:3000/apidocs
 ```
 
 ### Key Endpoints
 
 #### Bookings
 
-- `POST /api/bookings` - Create new booking
-- `GET /api/bookings/:id` - Get booking details
-- `GET /api/bookings/:id/status` - Get real-time status
-- `DELETE /api/bookings/:id` - Cancel booking
-- `GET /api/bookings/passenger/:passengerId` - Get passenger's bookings
+ `POST /api/bookings`  Create new booking
+ `GET /api/bookings/:id`  Get booking details
+ `GET /api/bookings/:id/status`  Get realtime status
+ `DELETE /api/bookings/:id`  Cancel booking
+ `GET /api/bookings/passenger/:passengerId`  Get passenger's bookings
 
 #### Passengers
 
-- `POST /api/passengers` - Register passenger
-- `GET /api/passengers/:id` - Get passenger details
-- `GET /api/passengers` - List all passengers
+ `POST /api/passengers`  Register passenger
+ `GET /api/passengers/:id`  Get passenger details
+ `GET /api/passengers`  List all passengers
 
 #### Cabs
 
-- `POST /api/cabs` - Register cab
-- `GET /api/cabs` - List all cabs
-- `GET /api/cabs/available` - Get available cabs
-- `PATCH /api/cabs/:id/status` - Update cab status
+ `POST /api/cabs`  Register cab
+ `GET /api/cabs`  List all cabs
+ `GET /api/cabs/available`  Get available cabs
+ `PATCH /api/cabs/:id/status`  Update cab status
 
 #### Pools
 
-- `GET /api/pools/:id` - Get pool details
-- `POST /api/pools/match` - Trigger manual matching
+ `GET /api/pools/:id`  Get pool details
+ `POST /api/pools/match`  Trigger manual matching
 
 ### Example: Create Booking
 
 ```bash
-curl -X POST http://localhost:3000/api/bookings \
-  -H "Content-Type: application/json" \
-  -d '{
+curl X POST http://localhost:3000/api/bookings \
+  H "ContentType: application/json" \
+  d '{
     "passenger_id": 1,
     "pickup_lat": 40.7128,
-    "pickup_lng": -74.0060,
+    "pickup_lng": 74.0060,
     "pickup_address": "JFK Airport Terminal 1",
     "dropoff_lat": 40.7580,
-    "dropoff_lng": -73.9855,
+    "dropoff_lng": 73.9855,
     "dropoff_address": "Times Square",
     "seats_required": 1,
     "luggage_count": 1,
@@ -284,10 +284,10 @@ npm run test:watch
 **Approach**: Modified Greedy Matching with Constraint Satisfaction
 
 **Complexity Analysis**:
-- **Time**: O(n log n + n\*k²) where k ≤ 4
-  - Sorting: O(n log n)
-  - Matching: O(n\*k²) with k = max pool size
-- **Space**: O(n + m) where m = number of pools
+ **Time**: O(n log n + n\*k²) where k ≤ 4
+   Sorting: O(n log n)
+   Matching: O(n\*k²) with k = max pool size
+ **Space**: O(n + m) where m = number of pools
 
 **Constraints Checked**:
 1. **Seat Capacity**: Σ(seats_required) ≤ cab_capacity
@@ -297,7 +297,7 @@ npm run test:watch
 
 ### Route Optimization
 
-**Algorithm**: Greedy Nearest Neighbor with pickup-before-dropoff constraint
+**Algorithm**: Greedy Nearest Neighbor with pickupbeforedropoff constraint
 
 **Process**:
 1. Start from first pickup
@@ -311,38 +311,38 @@ npm run test:watch
 Final Price = (Base + Distance×Rate + Time×Rate) × Surge × Peak × Pool Discount
 
 Where:
-- Base = $5.00
-- Distance Rate = $2.00/km
-- Time Rate = $0.50/min
-- Surge = 1 + max(0, (Active Bookings / Available Cabs - 1) × 0.5)
-- Peak Multiplier = 1.5 (6-9 AM, 5-8 PM)
-- Pool Discount = 30%
+ Base = $5.00
+ Distance Rate = $2.00/km
+ Time Rate = $0.50/min
+ Surge = 1 + max(0, (Active Bookings / Available Cabs  1) × 0.5)
+ Peak Multiplier = 1.5 (69 AM, 58 PM)
+ Pool Discount = 30%
 ```
 
 ## 📈 Performance Metrics
 
 ### Target Performance
 
-- **Concurrent Users**: 10,000+
-- **Requests per Second**: 100 RPS
-- **Latency (p95)**: < 300ms
-- **Matching Interval**: 5 seconds
+ **Concurrent Users**: 10,000+
+ **Requests per Second**: 100 RPS
+ **Latency (p95)**: < 300ms
+ **Matching Interval**: 5 seconds
 
 ### Optimization Strategies
 
 1. **Database**:
-   - B-tree indexes on status columns
-   - GiST spatial indexes for location queries
-   - Connection pooling (20 connections)
+    Btree indexes on status columns
+    GiST spatial indexes for location queries
+    Connection pooling (20 connections)
 
 2. **Caching**:
-   - Redis for route calculations (5 min TTL)
-   - Hash maps for cab availability
+    Redis for route calculations (5 min TTL)
+    Hash maps for cab availability
 
 3. **Concurrency**:
-   - Node.js clustering (CPU cores)
-   - Distributed locking (Redis)
-   - Optimistic locking (version field)
+    Node.js clustering (CPU cores)
+    Distributed locking (Redis)
+    Optimistic locking (version field)
 
 ## 📁 Project Structure
 
@@ -378,14 +378,14 @@ uber/
 │   ├── schema.sql                     # Database schema
 │   └── migrations/                    # Migration scripts
 ├── docs/
-│   ├── architecture-diagram.md        # HLD
-│   └── class-diagram.md               # LLD
+│   ├── architecturediagram.md        # HLD
+│   └── classdiagram.md               # LLD
 ├── tests/
 │   ├── unit/                          # Unit tests
 │   ├── integration/                   # API tests
 │   └── performance/                   # Load tests
-├── test-data/
-│   └── test-data.json                 # Sample data
+├── testdata/
+│   └── testdata.json                 # Sample data
 ├── .env.example                       # Environment template
 ├── package.json                       # Dependencies
 ├── tsconfig.json                      # TypeScript config
@@ -408,12 +408,12 @@ uber/
    ```
 
 3. **Connection Pooling**:
-   - PostgreSQL: 20 connections/instance
-   - Redis: 50 connections/instance
+    PostgreSQL: 20 connections/instance
+    Redis: 50 connections/instance
 
 4. **Node.js Clustering**:
-   - Spawn workers = CPU cores
-   - Round-robin load balancing
+    Spawn workers = CPU cores
+    Roundrobin load balancing
 
 ## 🎯 Key Design Patterns
 
@@ -421,15 +421,15 @@ uber/
 2. **Strategy**: Multiple pricing strategies
 3. **Factory**: Pool creation
 4. **Repository**: Data access abstraction
-5. **Observer**: Real-time status updates
+5. **Observer**: Realtime status updates
 
 ## 📝 Assumptions
 
-- All rides are airport-related (pickup or dropoff at airport)
-- Maximum 4 passengers per pool
-- Detour tolerance: 5-30 minutes
-- Average city speed: 40 km/h
-- Peak hours: 6-9 AM, 5-8 PM
+ All rides are airportrelated (pickup or dropoff at airport)
+ Maximum 4 passengers per pool
+ Detour tolerance: 530 minutes
+ Average city speed: 40 km/h
+ Peak hours: 69 AM, 58 PM
 
 ## 🐛 Troubleshooting
 
@@ -437,7 +437,7 @@ uber/
 
 ```bash
 # Check PostgreSQL is running
-net start postgresql-x64-14
+net start postgresqlx6414
 
 # Verify credentials in .env
 DATABASE_USER=postgres
@@ -448,7 +448,7 @@ DATABASE_PASSWORD=your_password
 
 ```bash
 # Start Redis server
-redis-server
+redisserver
 
 # Or use Windows Service
 net start Redis
@@ -471,7 +471,8 @@ Built for Backend Engineering Internship Assignment
 
 ## 🙏 Acknowledgments
 
-- PostgreSQL for robust ACID compliance
-- Redis for distributed locking
-- Express.js for minimal overhead
-- TypeScript for type safety
+ PostgreSQL for robust ACID compliance
+ Redis for distributed locking
+ Express.js for minimal overhead
+ TypeScript for type safety
+

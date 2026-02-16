@@ -8,10 +8,7 @@ import { generatePoolCode } from '../utils/helpers';
 import { redisClient } from '../utils/redis';
 import { logger } from '../utils/logger';
 
-/**
- * Pool Matcher Service
- * Orchestrates the pooling process with concurrency control
- */
+// Orchestrates pooling with concurrency control
 export class PoolMatcher {
     private algorithm: RidePoolingAlgorithm;
     private routeOptimizer: RouteOptimizer;
@@ -25,10 +22,7 @@ export class PoolMatcher {
         this.bookingService = new BookingService();
     }
 
-    /**
-     * Run matching process for pending bookings
-     * Uses distributed locking to prevent concurrent matching conflicts
-     */
+    // Runs matching process using distributed locks to prevent conflicts
     public async runMatching(): Promise<void> {
         // Acquire distributed lock
         const lockAcquired = await redisClient.acquireLock('pool_matching', 10000);
@@ -79,9 +73,7 @@ export class PoolMatcher {
         }
     }
 
-    /**
-     * Create a new pool
-     */
+
     private async createPool(poolCode: string, bookings: Booking[]): Promise<void> {
         const client = await db.getClient();
 
@@ -158,9 +150,7 @@ export class PoolMatcher {
         }
     }
 
-    /**
-     * Update existing pool with new bookings
-     */
+
     private async updatePool(poolId: number, bookings: Booking[]): Promise<void> {
         const client = await db.getClient();
 
@@ -235,9 +225,7 @@ export class PoolMatcher {
         }
     }
 
-    /**
-     * Handle booking cancellation and pool rebalancing
-     */
+    // Handles cancellation validation and pool rebalancing
     public async handleCancellation(bookingId: number): Promise<void> {
         const lockAcquired = await redisClient.acquireLock(`cancel_${bookingId}`, 5000);
         if (!lockAcquired) {
@@ -288,25 +276,19 @@ export class PoolMatcher {
         }
     }
 
-    /**
-     * Get forming pools
-     */
+
     private async getFormingPools(): Promise<RidePool[]> {
         const result = await db.query("SELECT * FROM ride_pools WHERE status = 'forming'");
         return result.rows;
     }
 
-    /**
-     * Get available cabs
-     */
+
     private async getAvailableCabs(): Promise<Cab[]> {
         const result = await db.query("SELECT * FROM cabs WHERE status = 'available'");
         return result.rows;
     }
 
-    /**
-     * Get pool details with participants
-     */
+
     public async getPoolDetails(poolId: number): Promise<any> {
         const poolResult = await db.query('SELECT * FROM ride_pools WHERE id = $1', [poolId]);
         if (poolResult.rows.length === 0) {

@@ -1,4 +1,4 @@
-# Low Level Design - Class Diagrams
+# Low Level Design  Class Diagrams
 
 ## Design Patterns Used
 
@@ -6,7 +6,7 @@
 2. **Strategy**: Pricing strategies
 3. **Factory**: Pool creation
 4. **Repository**: Data access layer
-5. **Observer**: Real-time status updates
+5. **Observer**: Realtime status updates
 
 ## Core Class Diagram
 
@@ -60,11 +60,11 @@ classDiagram
         +string email
     }
     
-    Booking "*" --> "1" Passenger
-    Booking "*" --> "0..1" RidePool
-    RidePool "*" --> "1" Cab
-    RidePool "1" --> "*" PoolParticipant
-    PoolParticipant "*" --> "1" Booking
+    Booking "*" > "1" Passenger
+    Booking "*" > "0..1" RidePool
+    RidePool "*" > "1" Cab
+    RidePool "1" > "*" PoolParticipant
+    PoolParticipant "*" > "1" Booking
 ```
 
 ## Service Layer Architecture
@@ -72,7 +72,7 @@ classDiagram
 ```mermaid
 classDiagram
     class BookingService {
-        -PricingEngine pricingEngine
+        PricingEngine pricingEngine
         +createBooking(data) Booking
         +getBooking(id) Booking
         +getPendingBookings() Booking[]
@@ -81,9 +81,9 @@ classDiagram
     }
     
     class PoolMatcher {
-        -RidePoolingAlgorithm algorithm
-        -RouteOptimizer routeOptimizer
-        -PricingEngine pricingEngine
+        RidePoolingAlgorithm algorithm
+        RouteOptimizer routeOptimizer
+        PricingEngine pricingEngine
         +runMatching() void
         +createPool(poolCode, bookings) void
         +updatePool(poolId, bookings) void
@@ -92,7 +92,7 @@ classDiagram
     }
     
     class PricingEngine {
-        -PricingConfig config
+        PricingConfig config
         +calculatePrice(booking, isPooled) number
         +getSurgeMultiplier() number
         +recalculatePoolPrices(poolId, bookingIds) Map
@@ -101,28 +101,28 @@ classDiagram
     }
     
     class RidePoolingAlgorithm {
-        -RouteOptimizer routeOptimizer
-        -number maxPoolSize
-        -number proximityRadiusKm
+        RouteOptimizer routeOptimizer
+        number maxPoolSize
+        number proximityRadiusKm
         +matchRides(bookings, pools, cabs) MatchResult
-        -canAddToPool(booking, poolBookings, pool) boolean
-        -checkRouteConstraints(bookings) boolean
+        canAddToPool(booking, poolBookings, pool) boolean
+        checkRouteConstraints(bookings) boolean
         +calculatePoolScore(booking, poolBookings) number
     }
     
     class RouteOptimizer {
         +optimize(bookings) OptimizedRoute
-        -findOptimalSequence(waypoints, bookings) RouteSegment[]
-        -calculateRouteMetrics(waypoints) Metrics
+        findOptimalSequence(waypoints, bookings) RouteSegment[]
+        calculateRouteMetrics(waypoints) Metrics
         +calculatePassengerDistance(waypoints, bookingId) Distance
     }
     
-    BookingService --> PricingEngine
-    PoolMatcher --> RidePoolingAlgorithm
-    PoolMatcher --> RouteOptimizer
-    PoolMatcher --> PricingEngine
-    PoolMatcher --> BookingService
-    RidePoolingAlgorithm --> RouteOptimizer
+    BookingService > PricingEngine
+    PoolMatcher > RidePoolingAlgorithm
+    PoolMatcher > RouteOptimizer
+    PoolMatcher > PricingEngine
+    PoolMatcher > BookingService
+    RidePoolingAlgorithm > RouteOptimizer
 ```
 
 ## Database Access Layer
@@ -130,8 +130,8 @@ classDiagram
 ```mermaid
 classDiagram
     class Database {
-        -Pool pool
-        -static Database instance
+        Pool pool
+        static Database instance
         +static getInstance() Database
         +query(text, params) QueryResult
         +getClient() PoolClient
@@ -141,8 +141,8 @@ classDiagram
     }
     
     class RedisClient {
-        -Redis client
-        -static RedisClient instance
+        Redis client
+        static RedisClient instance
         +static getInstance() RedisClient
         +getClient() Redis
         +setCache(key, value, ttl) void
@@ -153,9 +153,9 @@ classDiagram
         +dequeue(queueName) any
     }
     
-    BookingService --> Database
-    PoolMatcher --> Database
-    PoolMatcher --> RedisClient
+    BookingService > Database
+    PoolMatcher > Database
+    PoolMatcher > RedisClient
 ```
 
 ## API Layer Architecture
@@ -163,8 +163,8 @@ classDiagram
 ```mermaid
 classDiagram
     class BookingRouter {
-        -BookingService bookingService
-        -PoolMatcher poolMatcher
+        BookingService bookingService
+        PoolMatcher poolMatcher
         +POST_create(req, res) void
         +GET_byId(req, res) void
         +GET_status(req, res) void
@@ -185,7 +185,7 @@ classDiagram
     }
     
     class PoolRouter {
-        -PoolMatcher poolMatcher
+        PoolMatcher poolMatcher
         +GET_details(req, res) void
         +POST_match(req, res) void
     }
@@ -203,10 +203,10 @@ classDiagram
         +asyncHandler(fn) Function
     }
     
-    BookingRouter --> ValidationMiddleware
-    BookingRouter --> ErrorHandler
-    PassengerRouter --> ValidationMiddleware
-    CabRouter --> ValidationMiddleware
+    BookingRouter > ValidationMiddleware
+    BookingRouter > ErrorHandler
+    PassengerRouter > ValidationMiddleware
+    CabRouter > ValidationMiddleware
 ```
 
 ## Algorithm Components
@@ -236,8 +236,8 @@ classDiagram
         +Map~string, Booking[]~ newPools
     }
     
-    RouteSegment --> Location
-    OptimizedRoute --> RouteSegment
+    RouteSegment > Location
+    OptimizedRoute > RouteSegment
 ```
 
 ## Concurrency Control
@@ -251,30 +251,30 @@ classDiagram
     }
     
     class ConnectionPool {
-        -number maxConnections
-        -Connection[] connections
+        number maxConnections
+        Connection[] connections
         +getConnection() Connection
         +releaseConnection(conn) void
     }
     
-    PoolMatcher --> ConcurrencyManager
-    Database --> ConnectionPool
+    PoolMatcher > ConcurrencyManager
+    Database > ConnectionPool
 ```
 
 ## Key Relationships
 
-### 1-to-Many
-- **Passenger → Bookings**: One passenger can have multiple bookings
-- **Cab → RidePools**: One cab can serve multiple pools over time
-- **RidePool → PoolParticipants**: One pool has multiple participants
+### 1toMany
+ **Passenger → Bookings**: One passenger can have multiple bookings
+ **Cab → RidePools**: One cab can serve multiple pools over time
+ **RidePool → PoolParticipants**: One pool has multiple participants
 
-### Many-to-Many
-- **Bookings ↔ RidePools**: Implemented via `pool_participants` junction table
+### ManytoMany
+ **Bookings ↔ RidePools**: Implemented via `pool_participants` junction table
 
 ### Dependencies
-- **PoolMatcher → RidePoolingAlgorithm**: Uses algorithm for matching
-- **RidePoolingAlgorithm → RouteOptimizer**: Uses optimizer for route calculations
-- **All Services → Database/Redis**: Data access layer
+ **PoolMatcher → RidePoolingAlgorithm**: Uses algorithm for matching
+ **RidePoolingAlgorithm → RouteOptimizer**: Uses optimizer for route calculations
+ **All Services → Database/Redis**: Data access layer
 
 ## Design Principles Applied
 
@@ -286,7 +286,8 @@ classDiagram
 
 ## Thread Safety Mechanisms
 
-1. **Distributed Locks**: Redis-based locks for critical sections
+1. **Distributed Locks**: Redisbased locks for critical sections
 2. **Optimistic Locking**: Version fields in database
-3. **Connection Pooling**: Thread-safe connection management
+3. **Connection Pooling**: Threadsafe connection management
 4. **Immutable Data**: TypeScript readonly properties where applicable
+

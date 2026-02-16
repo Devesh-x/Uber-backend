@@ -4,11 +4,8 @@ import { calculateDistance, calculateDetour, isWithinRadius } from '../utils/hel
 import { logger } from '../utils/logger';
 
 /**
- * Ride Pooling Algorithm
- * Groups passengers into shared cabs using Modified Greedy Matching with Constraint Satisfaction
- * 
- * Time Complexity: O(n log n + n*k^2) where k << n (typically k <= 4)
- * Space Complexity: O(n + m) where m = number of pools
+ * Groups passengers into shared cabs using a greedy matching strategy.
+ * Complexity: O(n log n + n*k^2)
  */
 export class RidePoolingAlgorithm {
     private routeOptimizer: RouteOptimizer;
@@ -21,13 +18,7 @@ export class RidePoolingAlgorithm {
         this.proximityRadiusKm = proximityRadiusKm;
     }
 
-    /**
-     * Main matching algorithm
-     * @param pendingBookings Array of bookings awaiting matching
-     * @param existingPools Currently forming pools
-     * @param availableCabs Available cabs for new pools
-     * @returns Updated pools with matched bookings
-     */
+    // Main matching function: sorts bookings and attempts to place them in existing or new pools
     public matchRides(
         pendingBookings: Booking[],
         existingPools: RidePool[],

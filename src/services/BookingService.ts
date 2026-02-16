@@ -4,10 +4,7 @@ import { PricingEngine } from './PricingEngine';
 import { calculateDistance, calculateTravelTime } from '../utils/helpers';
 import { logger } from '../utils/logger';
 
-/**
- * Booking Service
- * Handles CRUD operations for bookings
- */
+// Handles booking CRUD operations
 export class BookingService {
     private pricingEngine: PricingEngine;
 
@@ -15,9 +12,7 @@ export class BookingService {
         this.pricingEngine = new PricingEngine();
     }
 
-    /**
-     * Create a new booking
-     */
+    // Creates a new booking with estimated price and duration
     public async createBooking(bookingData: Partial<Booking>): Promise<Booking> {
         try {
             // Calculate estimated distance and duration
@@ -73,9 +68,7 @@ export class BookingService {
         }
     }
 
-    /**
-     * Get booking by ID
-     */
+
     public async getBooking(bookingId: number): Promise<Booking | null> {
         try {
             const result = await db.query('SELECT * FROM bookings WHERE id = $1', [bookingId]);
@@ -86,9 +79,7 @@ export class BookingService {
         }
     }
 
-    /**
-     * Get all pending bookings
-     */
+
     public async getPendingBookings(): Promise<Booking[]> {
         try {
             const result = await db.query(
@@ -101,9 +92,7 @@ export class BookingService {
         }
     }
 
-    /**
-     * Update booking status
-     */
+
     public async updateBookingStatus(bookingId: number, status: Booking['status']): Promise<void> {
         try {
             await db.query(
@@ -117,9 +106,7 @@ export class BookingService {
         }
     }
 
-    /**
-     * Update booking final price
-     */
+
     public async updateBookingPrice(bookingId: number, finalPrice: number): Promise<void> {
         try {
             await db.query(
@@ -133,9 +120,7 @@ export class BookingService {
         }
     }
 
-    /**
-     * Cancel a booking
-     */
+    // Cancels booking if not already completed
     public async cancelBooking(bookingId: number): Promise<void> {
         try {
             const booking = await this.getBooking(bookingId);
@@ -155,9 +140,7 @@ export class BookingService {
         }
     }
 
-    /**
-     * Get bookings for a passenger
-     */
+
     public async getPassengerBookings(passengerId: number): Promise<Booking[]> {
         try {
             const result = await db.query(
