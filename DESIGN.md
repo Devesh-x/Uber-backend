@@ -4,42 +4,9 @@
 
 This diagram illustrates the high-level architecture of the Smart Airport Ride Pooling System, showing how different components interact to handle ride requests, matching, and data persistence.
 
-```mermaid
-graph TD
-    Client[Client App (Mobile/Web)] -->|HTTP/REST| LB[Load Balancer / Nginx]
-    LB -->|Distributes Traffic| API_Cluster[Node.js API Cluster]
-    
-    subgraph "Backend System (Node.js)"
-        API_Cluster -->|Auth & Validation| Middleware[Middleware Layer]
-        Middleware -->|Route Requests| Services[Service Layer]
-        
-        subgraph "Service Layer"
-            BS[Booking Service]
-            PS[Pricing Engine]
-            PM[Pool Matcher]
-        end
-        
-        subgraph "Algorithm Core"
-            RA[RidePoolingAlgorithm]
-            RO[RouteOptimizer]
-        end
-        
-        Services -->|Uses| Algorithm Core
-        PM -->|Orchestrates| RA
-        RA -->|Optimizes| RO
-    end
-    
-    subgraph "Data Persistence & Caching"
-        API_Cluster -->|Read/Write| DB[(PostgreSQL Primary)]
-        API_Cluster -->|Cache/Lock| Redis[(Redis Cluster)]
-    end
-    
-    subgraph "Background Processes"
-        Worker[Matching Worker] -->|Acquire Lock| Redis
-        Worker -->|Fetch Pending| DB
-        Worker -->|Update Pools| DB
-    end
-```
+![High Level Design - System Architecture](docs/assets/hld-architecture.png)
+
+*Note: This diagram illustrates the high-level architecture of the Smart Airport Ride Pooling System.*
 
 ### **Component Description:**
 
