@@ -154,10 +154,18 @@ This creates:
  Triggers for `updated_at` timestamps
  Views for common queries
 
-### 3. Verify Installation
+### 3. Load Sample Data (Optional)
 
 ```bash
-psql U postgres d ride_pooling
+npm run db:seed
+# Or manually:
+# psql -U postgres -d ride_pooling -f database/migrations/001_sample_data.sql
+```
+
+### 4. Verify Installation
+
+```bash
+psql -U postgres -d ride_pooling
 \dt  # List tables
 \di  # List indexes
 ```
